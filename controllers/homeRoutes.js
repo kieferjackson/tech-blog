@@ -10,8 +10,8 @@ router.get('/', async (req, res) =>
 
         const posts = allPosts.map( (post) => post.get({ plain: true }));
 
-        // Return all posts in the database
-        res.status(200).json(posts);
+        // Render the dashboard view
+        res.render('dashboard', { posts, loggedIn: req.session.loggedIn });
     }
     catch (error)
     {
