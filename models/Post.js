@@ -20,7 +20,7 @@ Post.init
         },
         submit_date: 
         {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allowNull: false
         },
         message:
