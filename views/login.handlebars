@@ -1,8 +1,8 @@
 {{!-- Login Form --}}
-<form>
+<form onsubmit="loginUser()">
     <h1>Login</h1>
     <section class="login_card">
-        <label for="email-login">Email:</label>
+        <label for="email_login">Email:</label>
         <input type="text" id="email_login" />
 
         <label for="password_login">Password:</label>
@@ -13,7 +13,7 @@
 </form>
 
 {{!-- Signup Form --}}
-<form>
+<form onsubmit="signUpUser()">
     <h1>Signup</h1>
     <section class="signup_card">
         <label for="username_signup">Username:</label>
