@@ -11,8 +11,9 @@
 <body>
     <header>TechBlog - Good 'ol Tech Discussion </header>
     <nav>
-        <a href="/">Dashboard</a>
+        <a href="/">Home</a>
         {{#if loggedIn}}
+        <a href="/dashboard">Dashboard</a>
         <button id="logout" onclick="logoutUser()">Logout</button>
         {{else}}
         <a href="/login">Login</a>
