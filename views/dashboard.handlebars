@@ -1,7 +1,24 @@
-{{#each user.posts as |post|}}
+<h1>{{username}}'s Posts</h1>
+
+{{#if user_is_op}}
+<form onsubmit="submit_post()">
+    <label for="post_title"></label>
+    <input type="text" name="post_title" id="post_title" />
+
+    <textarea name="comment" id="comment_message"></textarea>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script src="/js/submit_post.js"></script>
+{{/if}}
+
+{{#each posts as |post|}}
 <section>
     <h1>{{post.title}}</h1>
-    <h4>{{post.submit_date}}</h4>
+    <h4>{{convert_dateCreated post.submit_date}}</h4>
     <p>{{post.message}}</p>
 </section>
+{{else}}
+<h1>No posts yet...</h1>
 {{/each}}

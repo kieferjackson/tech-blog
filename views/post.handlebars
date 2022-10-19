@@ -1,7 +1,6 @@
 <section>
     <h1>{{post.title}}</h1>
-    <h3>Author: {{post.user.username}}</h3>
-    <h4>{{post.submit_date}}</h4>
+    <h3>by {{post.user.username}} @ {{convert_dateCreated post.submit_date}}</h3>
     <p>{{post.message}}</p>
 </section>
 
@@ -9,7 +8,7 @@
     <h1>Comments</h1>
     {{#each post.comments as |comment|}}
     <section>
-        <h4>{{comment.user.username}} || {{comment.createdAt}}</h4>
+        <h4>{{comment.user.username}} @ {{convert_dateCreated comment.createdAt}}</h4>
         <p>{{comment.message}}</p>
     </section>
     {{/each}}

@@ -21,12 +21,13 @@ router.get('/', async (req, res) => {
 
 router.get('/dashboard/:id', async (req, res) => {
     try {
-        const userPosts = await User.findByPk(req.params.id, { include: Post });
+        const userData = await User.findByPk(req.params.id, { include: Post });
+        const { username } = userData;
 
-        const user = userPosts.map((user_data) => post.get({ plain: true }));
+        const posts = userData.posts.map((post_data) => post_data.get({ plain: true }));
 
         // Render the user's dashboard
-        res.render('dashboard', { user, loggedIn: req.session.loggedIn, user_id: req.session.user_id });
+        res.render('dashboard', { username, posts, loggedIn: req.session.loggedIn, user_id: req.session.user_id });
     }
     catch (error) {
         console.log(error);
