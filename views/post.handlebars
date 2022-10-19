@@ -4,3 +4,26 @@
     <h4>{{post.submit_date}}</h4>
     <p>{{post.message}}</p>
 </section>
+
+<section class="comments">
+    <h1>Comments</h1>
+    {{#each post.comments as |comment|}}
+    <section>
+        <h4>{{comment.user.username}} || {{comment.createdAt}}</h4>
+        <p>{{comment.message}}</p>
+    </section>
+    {{/each}}
+</section>
+
+{{#if loggedIn}}
+<form onsubmit="post_comment()">
+    <div data-post_id="{{post.id}}" id="comment_post_id"></div>
+
+    <h3>Leave a comment:</h3>
+    <textarea name="comment" id="comment_message"></textarea>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script src="/js/submit_post.js"></script>
+{{/if}}

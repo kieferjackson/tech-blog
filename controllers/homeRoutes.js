@@ -41,10 +41,10 @@ router.get('/post/:id', async (req, res) => {
         {
             "id": postData.id,
             "title": postData.title,
-            "submit_date": postData.submit_date,
+            "submit_date": postData.createdAt,
             "message": postData.message,
             "user": { "username": postData.user.username },
-            "comments": postData.comments
+            "comments": postData.comments.map((comment) => comment.get({ plain: true }))
         }
 
         // Determines whether or not the user is the original poster or not

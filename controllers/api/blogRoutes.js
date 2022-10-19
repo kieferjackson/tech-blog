@@ -4,7 +4,7 @@ const { User, Post, Comment } = require('../../models');
 // CREATE new post
 router.post('/', async (req, res) => {
     try {
-        const { title, message, submit_date } = req.body;
+        const { title, message } = req.body;
 
         if (req.session.loggedIn) {
             const new_post = await Post.create
@@ -12,7 +12,6 @@ router.post('/', async (req, res) => {
                     {
                         title,
                         message,
-                        submit_date,
                         poster_id: req.session.user_id,
                     }
                 );
@@ -21,9 +20,51 @@ router.post('/', async (req, res) => {
             return;
         }
         else {
-            res.status(400).json({ message: `Insufficient information to add pet` });
+            res.status(400).json({ message: `Insufficient information to add post` });
         }
 
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json(error);
+    }
+});
+
+// CREATE new comment for a post
+router.post('/comment', async (req, res) => {
+    try {
+        const { post_id, message } = req.body;
+
+        if (req.session.loggedIn) {
+            const new_comment = await Comment.create
+                (
+                    {
+                        message,
+                        poster_id: req.session.user_id,
+                        post_id
+                    }
+                );
+
+            res.redirect(`/post/${post_id}`);
+            return;
+        }
+        else {
+            res.status(400).json({ message: `Insufficient information to add comment` });
+        }
+
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json(error);
+    }
+});
+
+// Get all posts with comments
+router.get('/all', async (req, res) => {
+    try {
+        const allPosts = await Post.findAll({ include: { model: Comment } });
+
+        res.status(200).json(allPosts);
     }
     catch (error) {
         console.log(error);

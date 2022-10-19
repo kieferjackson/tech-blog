@@ -11,15 +11,28 @@ async function submit_post() {
                 headers: { 'Content-Type': 'application/json' }
             });
 
-        if (response.ok) {
-            // Redirect the user to the homepage
-            document.location.replace('/');
-        }
-        else {
-            alert('Failed to submit post.');
-        }
+        if (!response.ok) { alert('Failed to submit post.'); }
     }
     else {
         alert('Insufficient information to add new post.');
+    }
+}
+
+async function post_comment() {
+    const post_id = parseInt(document.querySelector('#comment_post_id').dataset.post_id);
+    const message = document.querySelector('#comment_message').value.trim();
+
+    if (post_id && message) {
+        const response = await fetch('/api/blogs/comment',
+            {
+                method: 'POST',
+                body: JSON.stringify({ post_id, message }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+        if (!response.ok) { alert('Failed to submit comment.'); }
+    }
+    else {
+        alert('Insufficient information to add new comment.');
     }
 }
