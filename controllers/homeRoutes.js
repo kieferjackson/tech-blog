@@ -34,6 +34,31 @@ router.get('/dashboard/:id', async (req, res) => {
     }
 });
 
+router.get('/post/:id', async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id, { include: { all: true, nested: true } });
+        const post =
+        {
+            "id": postData.id,
+            "title": postData.title,
+            "submit_date": postData.submit_date,
+            "message": postData.message,
+            "user": { "username": postData.user.username },
+            "comments": postData.comments
+        }
+
+        // Determines whether or not the user is the original poster or not
+        const user_is_op = postData.user.id === req.session.user_id;
+
+        // Render the post page
+        res.render('post', { post, loggedIn: req.session.loggedIn, user_id: req.session.user_id, user_is_op });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json(error);
+    }
+});
+
 // GET all users
 router.get('/users', async (req, res) => {
     try {
