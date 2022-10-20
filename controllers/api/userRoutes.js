@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
             req.session.loggedIn = true;
             req.session.user_id = userData.id;
 
-            res.status(200);
+            res.redirect('/');
         });
     }
     catch (error) {
@@ -52,7 +52,8 @@ router.post('/login', async (req, res) => {
             req.session.loggedIn = true;
             req.session.user_id = userToLogin.id;
 
-            res.status(200).json({ user: userToLogin, message: 'You have been successfully logged in.' });
+            // res.status(200).json({ user: userToLogin, message: 'You have been successfully logged in.' });
+            res.redirect('/');
         })
     }
     catch (error) {

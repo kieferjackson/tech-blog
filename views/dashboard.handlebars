@@ -14,11 +14,12 @@
 {{/if}}
 
 {{#each posts as |post|}}
-<section>
-    <h1>{{post.title}}</h1>
-    <h4>{{convert_dateCreated post.createdAt}}</h4>
-    <p>{{post.message}}</p>
-</section>
+<a href="/post/{{post.id}}">
+    <section>
+        <h1>{{post.title}} @ {{convert_dateCreated post.createdAt}}</h1>
+        <p>{{post.message}}</p>
+    </section>
+</a>
 {{else}}
 <h1>No posts yet...</h1>
 {{/each}}

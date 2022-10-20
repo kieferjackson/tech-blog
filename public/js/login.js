@@ -10,13 +10,7 @@ async function loginUser() {
                 headers: { 'Content-Type': 'application/json' }
             });
 
-        if (response.ok) {
-            // Redirect the user to the homepage
-            document.location.replace('/');
-        }
-        else {
-            alert('Failed to login.');
-        }
+        if (!response.ok) { alert('Failed to login.') }
     }
 }
 
@@ -33,12 +27,6 @@ async function signUpUser() {
                 headers: { 'Content-Type': 'application/json' }
             });
 
-        if (response.ok) {
-            // Redirect the user to the homepage
-            document.location.replace('/');
-        }
-        else {
-            alert('Failed to sign up.');
-        }
+        if (!response.ok) { alert('Failed to login.') }
     }
 }
