@@ -1,24 +1,18 @@
 <h1>{{username}}'s Posts</h1>
 
 {{#if user_is_op}}
-<form onsubmit="submit_post()">
-    <label for="post_title">Post Title</label>
-    <input type="text" id="post_title" />
-
-    <textarea name="post" id="post_message"></textarea>
-
-    <button type="submit">Submit</button>
-</form>
-
-<script src="/js/submit_post.js"></script>
+{{> post_form}}
 {{/if}}
 
 {{#each posts as |post|}}
 <a href="/post/{{post.id}}">
-    <section>
-        <h1>{{post.title}} @ {{convert_dateCreated post.createdAt}}</h1>
-        <p>{{post.message}}</p>
-    </section>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{post.title}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{convert_dateCreated post.createdAt}}</h6>
+            <p class="card-text">{{post.message}}</p>
+        </div>
+    </div>
 </a>
 {{else}}
 <h1>No posts yet...</h1>
