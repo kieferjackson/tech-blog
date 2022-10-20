@@ -2,10 +2,10 @@
 
 {{#if user_is_op}}
 <form onsubmit="submit_post()">
-    <label for="post_title"></label>
-    <input type="text" name="post_title" id="post_title" />
+    <label for="post_title">Post Title</label>
+    <input type="text" id="post_title" />
 
-    <textarea name="comment" id="comment_message"></textarea>
+    <textarea name="post" id="post_message"></textarea>
 
     <button type="submit">Submit</button>
 </form>
@@ -16,7 +16,7 @@
 {{#each posts as |post|}}
 <section>
     <h1>{{post.title}}</h1>
-    <h4>{{convert_dateCreated post.submit_date}}</h4>
+    <h4>{{convert_dateCreated post.createdAt}}</h4>
     <p>{{post.message}}</p>
 </section>
 {{else}}

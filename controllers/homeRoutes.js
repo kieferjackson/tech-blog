@@ -26,8 +26,11 @@ router.get('/dashboard/:id', async (req, res) => {
 
         const posts = userData.posts.map((post_data) => post_data.get({ plain: true }));
 
+        // Determines whether or not the user is the original poster or not
+        const user_is_op = userData.id === req.session.user_id;
+        console.log(`${username}'s POST DATA: `, posts);
         // Render the user's dashboard
-        res.render('dashboard', { username, posts, loggedIn: req.session.loggedIn, user_id: req.session.user_id });
+        res.render('dashboard', { username, posts, loggedIn: req.session.loggedIn, user_id: req.session.user_id, user_is_op });
     }
     catch (error) {
         console.log(error);
