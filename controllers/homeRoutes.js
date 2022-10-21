@@ -41,21 +41,26 @@ router.get('/dashboard/:id', async (req, res) => {
 router.get('/post/:id', async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, { include: { all: true, nested: true } });
-        const post =
+
+        if(postData)
         {
-            "id": postData.id,
-            "title": postData.title,
-            "submit_date": postData.createdAt,
-            "message": postData.message,
-            "user": { "username": postData.user.username },
-            "comments": postData.comments.map((comment) => comment.get({ plain: true }))
+            const post =
+            {
+                "id": postData.id,
+                "title": postData.title,
+                "submit_date": postData.createdAt,
+                "message": postData.message,
+                "user": { "username": postData.user.username },
+                "comments": postData.comments.map((comment) => comment.get({ plain: true }))
+            }
+
+            // Determines whether or not the user is the original poster or not
+            const user_is_op = postData.user.id === req.session.user_id;
+
+            // Render the post page
+            res.render('post', { post, loggedIn: req.session.loggedIn, user_id: req.session.user_id, user_is_op });
         }
-
-        // Determines whether or not the user is the original poster or not
-        const user_is_op = postData.user.id === req.session.user_id;
-
-        // Render the post page
-        res.render('post', { post, loggedIn: req.session.loggedIn, user_id: req.session.user_id, user_is_op });
+        else { res.status(404).json({ message: `No post could be found with ID: ${req.params.id}`})}
     }
     catch (error) {
         console.log(error);

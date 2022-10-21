@@ -72,6 +72,19 @@ router.get('/all', async (req, res) => {
     }
 });
 
+// Get all comments
+router.get('/all-comments', async (req, res) => {
+    try {
+        const allComments = await Comment.findAll();
+
+        res.status(200).json(allComments);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json(error);
+    }
+});
+
 // GET Post by id
 router.get('/:id', async (req, res) => {
     const given_post_id = req.params.id;
@@ -111,7 +124,32 @@ router.put('/:id', async (req, res) =>
         postToUpdate.set(req.body);
         await postToUpdate.save();
 
-        res.status(200).json(postToUpdate);
+        res.redirect(`/post/${given_post_id}`);
+    }
+    catch (error)
+    {
+        res.status(500).json(error);
+    }
+});
+
+// Delete post by id
+router.delete('/:id', async (req, res) =>
+{
+    const given_post_id = req.params.id;
+
+    try
+    {
+        const postToDelete = await Post.findByPk(given_post_id);
+
+        if (!postToDelete)
+        {
+            res.status(400).json({ message: `No post with ID: ${given_post_id}` });
+            return;
+        }
+
+        await postToDelete.destroy();
+
+        res.redirect(`/dashboard/${req.session.user_id}`);
     }
     catch (error)
     {

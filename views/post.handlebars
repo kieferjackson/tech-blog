@@ -10,7 +10,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li>{{> update_form}}</li>
-        <li><button type="button" class="btn btn-danger">Delete Post</button></li>
+        <li>{{> delete_form}}</li>
     </ol>
 </nav>
 {{/if}}
@@ -30,7 +30,7 @@
     <div data-post_id="{{post.id}}" id="comment_post_id"></div>
 
     <div class="form-group">
-        <label for="comment_message">Comment Message</label>
+        <label for="comment_message">Leave a comment</label>
         <textarea class="form-control" name="comment" id="comment_message" rows="3"></textarea>
     </div>
 

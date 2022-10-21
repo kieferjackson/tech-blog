@@ -31,11 +31,23 @@ async function update_post() {
                 headers: { 'Content-Type': 'application/json' }
             });
 
-        if (!response.ok) { alert('Failed to submit post.'); }
+        if (!response.ok) { alert('Failed to update post.'); }
     }
     else {
-        alert('Insufficient information to add new post.');
+        alert('Insufficient information to update post.');
     }
+}
+
+async function delete_post() {
+    const id = document.querySelector('#delete_post_id').dataset.post_id;
+
+    const response = await fetch(`/api/blogs/${id}`,
+        {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+    if (!response.ok) { alert('Failed to delete post.'); }
 }
 
 async function post_comment() {
