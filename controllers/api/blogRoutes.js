@@ -92,4 +92,31 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// Update post by id
+router.put('/:id', async (req, res) =>
+{
+    const given_post_id = req.params.id;
+
+    try
+    {
+        const postToUpdate = await Post.findByPk(given_post_id);
+
+        if (!postToUpdate)
+        {
+            res.status(404).json({ message: `No post with ID: ${given_post_id}` });
+            return;
+        }
+
+        // Updated selected post with the request body
+        postToUpdate.set(req.body);
+        await postToUpdate.save();
+
+        res.status(200).json(postToUpdate);
+    }
+    catch (error)
+    {
+        res.status(500).json(error);
+    }
+});
+
 module.exports = router;

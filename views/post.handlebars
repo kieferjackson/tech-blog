@@ -1,7 +1,7 @@
 <div class="card" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title">{{post.title}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{convert_dateCreated post.createdAt}}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">{{convert_dateCreated post.submit_date}}</h6>
         <p class="card-text">{{post.message}}</p>
     </div>
 </div>
@@ -9,7 +9,7 @@
 {{#if user_is_op}}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li><button type="button" class="btn btn-secondary">Update Post</button></li>
+        <li>{{> update_form}}</li>
         <li><button type="button" class="btn btn-danger">Delete Post</button></li>
     </ol>
 </nav>
@@ -30,7 +30,7 @@
     <div data-post_id="{{post.id}}" id="comment_post_id"></div>
 
     <div class="form-group">
-        <label for="comment_message">Post Message</label>
+        <label for="comment_message">Comment Message</label>
         <textarea class="form-control" name="comment" id="comment_message" rows="3"></textarea>
     </div>
 
