@@ -1,0 +1,17 @@
+nav.navbar { border-bottom: #ccc solid 1px }
+
+.nav-item 
+{ 
+    margin-right: 10px;
+    list-style: none;
+    font-weight: bold;
+}
+
+.post_card { margin-bottom: 10px }
+
+.post_title 
+{ 
+    background-color: #f1f1f1;
+    padding: 14px;
+    border-radius: 4px;
+}
